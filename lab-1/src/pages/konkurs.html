@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logowanie</title>
+  <link rel="stylesheet" href="../css/konkurs.css">
+</head>
+<body>
+  <header>
+    <h1>Lab 1 - Patrycja Bień</h1>
+    <nav>
+      <a href="login.html">Logowanie</a>
+      <a aria-current="page" aria-disabled="true" tabindex="-1">Konkurs</a>
+      <a href="uwagi.html">Uwagi</a>
+      <a href="../../index.html">Powrót</a>
+    </nav>
+  </header>
+  <main>
+      <input type="checkbox" id="theme-toggle" hidden>
+      <div class="info-header">
+        <h1><b>Zgłoszenie<br>do Konkursu Plastycznego</b></h1>
+        <label for="theme-toggle" id="theme-icon" title="Zmień motyw">&#127763;</label>
+      </div>
+    </div>
+    <form action="https://httpbin.org/post" method="post">
+      <label for="imie">Imię:</label>
+      <input type="text" id="imie" name="imie" maxlength="30" required>
+
+      <label for="nazwisko">Nazwisko:</label>
+      <input type="text" id="nazwisko" name="nazwisko" maxlength="50" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="miasto">Miasto:</label>
+      <input list="miasta" id="miasto" name="miasto" placeholder="Wpisz lub wybierz" required>
+      <datalist id="miasta">
+        <option value="Warszawa">
+        <option value="Kraków">
+        <option value="Wrocław">
+        <option value="Gdańsk">
+        <option value="Poznań">
+      </datalist>
+
+      <label for="data_urodzenia">Data urodzenia:</label>
+      <input type="date" id="data_urodzenia" name="data_urodzenia" required>
+
+      <label for="liczba_prac">Liczba zgłaszanych prac (od 1 do 6):</label>
+      <input type="number" id="liczba_prac" name="liczba_prac" min="1" max="6" required>
+
+      <label for="kolor">Kolor wiodący prac:</label>
+      <input type="color" id="kolor" name="kolor" value="#ffcc00" required>
+
+      <label for="kategoria">Kategoria pracy:</label>
+      <select id="kategoria" name="kategoria" required>
+        <option value="">-- wybierz kategorię --</option>
+        <option value="rysunek">Rysunek</option>
+        <option value="malarstwo">Malarstwo</option>
+        <option value="grafika_cyfrowa">Grafika cyfrowa</option>
+      </select>
+
+      <fieldset>
+        <legend>Publikacja pracy online:</legend>
+        <label><input type="radio" name="publikacja" value="tak" required>Tak</label>
+        <label><input type="radio" name="publikacja" value="nie" required>Nie</label>
+      </fieldset>
+
+      <label><input type="checkbox" name="zgoda" required>Zgadzam się na regulamin konkursu</label>
+
+      <button id="submit" type="submit">Wyślij zgłoszenie</button>
+    </form>
+  </main>
+</body>
+</html>
+
+  </body>
+</html>
