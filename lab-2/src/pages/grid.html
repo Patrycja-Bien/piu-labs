@@ -11,11 +11,16 @@
   </head>
   <body>
     <div class="container">
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+
       <header>
         <div class="logo">Logo 🌻</div>
         <h1>Tytuł strony</h1>
+        <label for="nav-toggle" class="menu-toggle" aria-label="Otwórz/zamknij menu"></label>
       </header>
-      <nav>
+
+      <nav id="site-nav" role="navigation" aria-label="Główne">
         <a href="#">Strona główna</a>
         <a href="#">O nas</a>
         <a href="#">Usługi</a>

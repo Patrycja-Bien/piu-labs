@@ -154,3 +154,115 @@ footer{
     padding: 5px;
   }
 }
+
+/* hamburger menu */
+
+header{ position: relative; z-index: 1100; }
+.menu-toggle{
+  margin-left: auto;
+  width: 40px; height: 40px;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--header-text);
+}
+.menu-toggle::before{
+  content: "☰";
+  font-size: 24px; line-height: 1;
+}
+
+nav{
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--nav);
+  color: var(--nav-text);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px;
+
+  opacity: 0;
+  transform: translateY(-16px);     
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity .28s ease,
+    transform .32s cubic-bezier(.2,.6,.2,1),
+    visibility 0s linear .32s;      
+}
+
+
+#nav-toggle:checked ~ nav{
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity .28s ease,
+    transform .36s cubic-bezier(.2,.8,.2,1),
+    visibility 0s;                  
+}
+
+
+#nav-toggle:checked ~ nav a{
+  color: var(--nav-text);
+  text-decoration: none;
+  font-size: 1.25rem;
+  padding: 12px 18px;
+}
+
+#nav-toggle:checked ~ header .menu-toggle::before{
+  content: "✕";
+}
+
+.container:has(#nav-toggle:checked){
+  height: 100vh;
+  overflow: hidden;
+}
+
+@media (min-width:1024px){
+  .menu-toggle{ display: none; }
+
+  nav{
+    position: static;
+    inset: auto;
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    pointer-events: auto;
+    transition: none;
+
+    display: flex;
+    flex-direction: row;       /* w jednej linii */
+    flex-wrap: nowrap;         /* bez zawijania */
+    gap: 12px;
+    justify-content: flex-start;
+    background: var(--nav);
+    color: var(--nav-text);
+    padding-block: 12px;
+    overflow-x: auto;        
+    -webkit-overflow-scrolling: touch;
+  }
+
+  nav a{
+    color: var(--nav-text);
+    white-space: nowrap;      
+    text-decoration: none;
+    padding: 10px 14px;
+  }
+
+  #nav-toggle:checked ~ nav{
+    position: static;
+    inset: auto;
+    display: flex;
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
