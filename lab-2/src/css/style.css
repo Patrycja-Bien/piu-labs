@@ -10,26 +10,11 @@ html {
 
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 1rem;
   background-color: #f9f9f9;
   color: #333;
   line-height: 1.8;
-  padding: 20px;
-}
-
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-section {
-  margin-bottom: 30px;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  width: 100%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 h1 {
@@ -38,69 +23,41 @@ h1 {
   color: #222;
 }
 
-p {
-  margin: 13px;
-}
-
-nav {
+.navigation {
   margin-bottom: 20px;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-}
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 10px;
-}
+  nav {
+    margin-bottom: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
 
-ul {
-  list-style: circle;
-  padding-left: 24px;
-}
+    a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 6px;
+      padding: 8px 12px;
+      transition: background 0.2s, color 0.2s;
 
-nav a {
-  text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background 0.2s, color 0.2s;
-}
+      &:hover {
+        background: #e6f0ff;
+        color: #0056b3;
+      }
 
-nav a[aria-current="page"],
-nav li.active > a,
-nav a.active {
-  pointer-events: none !important;
-  cursor: default;
-  background: #e6f0ff;
-  color: #0056b3;
-}
+      &[aria-current='page'] {
+        pointer-events: none;
+        cursor: default;
+        background: #e6f0ff;
+        color: #0056b3;
 
-nav a[aria-current="page"]:hover,
-nav li.active > a:hover,
-nav a.active:hover {
-  background: #e6f0ff;
-  color: #0056b3;
-}
-
-nav a:hover {
-  background: #e6f0ff;
-  color: #0056b3;
-}
-
-label {
-  display: block;
-  margin-top: 10px;
-}
-
-input,
-select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+        &:hover {
+          background: #e6f0ff;
+          color: #0056b3;
+        }
+      }
+    }
+  }
 }

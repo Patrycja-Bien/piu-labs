@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0" 
+    >
+    <title>Flexbox Demo</title>
+    <link rel="stylesheet" href="../css/galeria.css" />
+  </head>
+    <body>
+      <div class="navigation">
+        <h1>Lab 2 - Patrycja Bień</h1>
+        <nav>
+          <a href="flex.html">Flexbox</a>
+          <a href="grid.html">Grid</a>
+          <a aria-current="page" aria-disabled="true" tabindex="-1">Galeria</a>
+          <a href="../../index.html">Powrót</a>
+        </nav>
+      </div>
+
+      <header class="site-header">
+        <h1>Galeria zdjęć</h1>
+      </header>
+
+      <main class="gallery" aria-label="Galeria zdjęć">
+        <figure>
+          <img class="photo"
+            src="../images/1_500.jpg" 
+            srcset="
+              ../images/1_500.jpg 500w,
+              ../images/1_1000.jpg 1000w
+            "
+            sizes="(min-width: 1600px) 1000px, (min-width: 1200px) 500px, (min-width: 800px) 1000px, 500px"
+            alt="Stado młodych kapibar nad rzeką."
+          >
+          <figcaption>Stado młodych kapibar nad rzeką.</figcaption>
+        </figure>
+        <figure>
+          <img class="photo" 
+            src="../images/2_500.jpg" 
+            srcset="
+              ../images/2_500.jpg 500w,
+              ../images/2_1000.jpg 1000w
+            "
+            sizes="(min-width: 1600px) 1000px, (min-width: 1200px) 500px, (min-width: 800px) 1000px, 500px"
+            alt="Kapibara patrząca wprost w obiektyw kamery."
+          >
+          <figcaption>Kapibara patrząca wprost w obiektyw kamery.</figcaption>
+        </figure>
+            <figure>
+          <img class="photo"
+            src="../images/3_500.jpg" 
+            srcset="
+              ../images/3_500.jpg 500w,
+              ../images/3_1000.jpg 1000w
+            "
+            sizes="(min-width: 1600px) 1000px, (min-width: 1200px) 500px, (min-width: 800px) 1000px, 500px"
+            alt="Kapibara czekająca przy misce na jedzenie."
+          >
+          <figcaption>Kapibara czekająca przy misce na jedzenie.</figcaption>
+        </figure>
+        <figure>
+          <img class="photo"
+            src="../images/4_500.jpg" 
+            srcset="
+              ../images/4_500.jpg 500w,
+              ../images/4_1000.jpg 1000w
+            "
+            sizes="(min-width: 1600px) 1000px, (min-width: 1200px) 500px, (min-width: 800px) 1000px, 500px"
+            alt="Rodzina kapibar z młodymi nad rzeką."
+          >
+          <figcaption>Rodzina kapibar z młodymi nad rzeką.</figcaption>
+        </figure>
+            <figure>
+          <img class="photo"
+            src="../images/5_500.jpg" 
+            srcset="
+              ../images/5_500.jpg 500w,
+              ../images/5_1000.jpg 1000w
+            "
+            sizes="(min-width: 1600px) 1000px, (min-width: 1200px) 500px, (min-width: 800px) 1000px, 500px"
+            alt="Dwie kapibary nad rzeką."
+          >
+          <figcaption>Dwie kapibary nad rzeką.</figcaption>
+        </figure>
+
+        <figure>
+          <img class="photo"
+            src="../images/6_500.jpg" 
+            srcset="
+              ../images/6_500.jpg 500w,
+              ../images/6_1000.jpg 1000w
+            "
+            sizes="(min-width: 1600px) 1000px, (min-width: 1200px) 500px, (min-width: 800px) 1000px, 500px"
+            alt="Młoda kapibara w lesie."
+          >
+          <figcaption>Młoda kapibara w lesie.</figcaption>
+        </figure>
+
+        <figure>
+          <img class="photo"
+            src="../images/7_500.jpg" 
+            srcset="
+              ../images/7_500.jpg 500w,
+              ../images/7_1000.jpg 1000w
+            "
+            sizes="(min-width: 1600px) 1000px, (min-width: 1200px) 500px, (min-width: 800px) 1000px, 500px"
+            alt="Kapibara pływająca wśród cytryn."
+          >
+          <figcaption>Kapibara pływająca wśród cytryn.</figcaption>
+        </figure>
+
+        <figure>
+          <img class="photo"
+            src="../images/8_500.jpg" 
+            srcset="
+              ../images/8_500.jpg 500w,
+              ../images/8_1000.jpg 1000w
+            "
+            sizes="(min-width: 1600px) 1000px, (min-width: 1200px) 500px, (min-width: 800px) 1000px, 500px"
+            alt="Trzy kapibary na łące."
+          >
+          <figcaption>Trzy kapibary na łące.</figcaption>
+        </figure>
+
+        <figure>
+          <img class="photo"
+            src="../images/9_500.jpg" 
+            srcset="
+              ../images/9_500.jpg 500w,
+              ../images/9_1000.jpg 1000w
+            "
+            sizes="(min-width: 1600px) 1000px, (min-width: 1200px) 500px, (min-width: 800px) 1000px, 500px"
+            alt="Młoda kapibara leżąca na słomie."
+          >
+          <figcaption>Młoda kapibara leżąca na słomie.</figcaption>
+        </figure>
+
+        <figure>
+          <img class="photo"
+            src="../images/10_500.jpg" 
+            srcset="
+              ../images/10_500.jpg 500w,
+              ../images/10_1000.jpg 1000w
+            "
+            sizes="(min-width: 1600px) 1000px, (min-width: 1200px) 500px, (min-width: 800px) 1000px, 500px"
+            alt="Dorosła kapibara jedząca kapustę."
+          >
+          <figcaption>Dorosła kapibara jedząca kapustę.</figcaption>
+        </figure>
+    </body>
+</html>
