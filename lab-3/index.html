@@ -2,11 +2,65 @@
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Lab 3</title>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/polo.css" />
   </head>
   <body>
-    <h1>Lab 3</h1>
-    <a href="..">Powrót</a>
+    <div class="navigation">
+      <h1>Lab 3 - Patrycja Bień</h1>
+      <nav>
+        <a href="..">Powrót</a>
+      </nav>
+    </div>
+    <div class="product">
+      <div class="picture">
+        <img src="./images/polo_b.png" alt="Koszulka Polo" class="blue" />
+        <img src="./images/polo_r.png" alt="Koszulka Polo" class="red" />
+        <img src="./images/polo_g.png" alt="Koszulka Polo" class="green" />
+        <img src="./images/polo_y.png" alt="Koszulka Polo" class="yellow" />
+      </div>
+      <div class="shop-content">
+        <div class="heading">
+          <h2>Koszulka Polo</h2>
+          <span class="promo">Promocja!</span>
+        </div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et cumque
+          sit quas quis! Sit neque suscipit voluptate.
+        </p>
+        <fieldset class="colors">
+          <legend>Kolor</legend>
+          <div class="color-options">
+            <input type="radio" name="color" id="blue" checked />
+            <label for="blue" class="color-circle blue" aria-label="Niebieski"></label>
+            <input type="radio" name="color" id="red" />
+            <label for="red" class="color-circle red" aria-label="Czerwony"></label>
+            <input type="radio" name="color" id="green" />
+            <label for="green" class="color-circle green" aria-label="Zielony"></label>
+            <input type="radio" name="color" id="yellow" />
+            <label for="yellow" class="color-circle yellow" aria-label="Żółty"></label>
+          </div>
+        </fieldset>
+        <fieldset class="sizes">
+          <legend>Rozmiar</legend>
+          <div class="size-options">
+            <input type="radio" name="size" id="s" />
+            <label for="s" class="size">S</label>
+            <input type="radio" name="size" id="m" />
+            <label for="m" class="size">M</label>
+            <input type="radio" name="size" id="l" />
+            <label for="l" class="size">L</label>
+            <input type="radio" name="size" id="xl" />
+            <label for="xl" class="size">XL</label>
+          </div>
+        </fieldset>
+        
+          <h2 class="price">59,99 zł</h2>
+          <button class="buy-button">&#128722; Do koszyka</button>
+
+        </div>
+      </div>
+    </div>
   </body>
 </html>
