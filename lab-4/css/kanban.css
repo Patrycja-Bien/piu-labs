@@ -1,0 +1,235 @@
+#kanban-app {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.kanban-column {
+  flex: 1 1 240px;
+  background: #fffbef;
+  border: 1px solid #d7d1b0;
+  border-radius: 8px;
+  padding: 0.75rem 0.75rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+.kanban-column header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.kanban-column h2 {
+  font-size: 1.1rem;
+  margin: 0;
+  flex: 1;
+  color: #3c3b3b;
+}
+.column-actions {
+  display: flex;
+  gap: 0.35rem;
+}
+button.btn,
+.column-actions button {
+  background: #d57f7f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+button.btn.secondary {
+  background: #d29393;
+}
+button.btn.danger {
+  background: #c62828;
+}
+button.btn:hover,
+.column-actions button:hover {
+  filter: brightness(1.1);
+}
+button.btn:active {
+  transform: translateY(1px);
+}
+
+.card-counter {
+  font-size: 0.7rem;
+  background: #e1e7ec;
+  padding: 0.2rem 0.45rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.kanban-cards {
+  overflow-y: auto;
+  overflow-x: visible;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.35rem 0.45rem;
+  box-sizing: border-box;
+  scrollbar-gutter: stable both-edges;
+}
+.kanban-cards.hide-horizontal {
+  overflow-x: hidden;
+}
+.kanban-card {
+  position: relative;
+  border-radius: 6px;
+  padding: 0.5rem 0.55rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  font-size: 0.85rem;
+  min-height: 100px;
+  outline: 1px solid rgba(0, 0, 0, 0.08);
+  width: 100%;
+  box-sizing: border-box;
+}
+.card-content {
+  min-height: 28px;
+  cursor: text;
+  outline: none;
+  line-height: 1.25;
+}
+.kanban-card:focus-within {
+  outline: 2px solid #666464;
+}
+
+.card-toolbar {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  gap: 4px;
+}
+.card-toolbar button {
+  background: rgba(60, 24, 24, 0.55);
+  color: #fff;
+  border: none;
+  padding: 2px 6px;
+  font-size: 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.card-toolbar button:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.kanban-cards::-webkit-scrollbar {
+  width: 8px;
+}
+.kanban-cards::-webkit-scrollbar-track {
+  background: transparent;
+}
+.kanban-cards::-webkit-scrollbar-thumb {
+  background: #b6c2cc;
+  border-radius: 4px;
+}
+
+.sort-indicator {
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+
+.kanban-card {
+  transition: transform 0.25s ease, background-color 0.4s ease,
+    box-shadow 0.25s ease;
+}
+.card-enter {
+  animation: cardFadeIn 0.35s ease;
+}
+.card-move-left {
+  animation: cardSlideLeft 0.3s ease;
+}
+.card-move-right {
+  animation: cardSlideRight 0.3s ease;
+}
+.card-recolor {
+  animation: cardPulse 0.6s ease;
+}
+.card-remove {
+  animation: cardRemove 0.35s ease forwards;
+}
+@keyframes cardRemove {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    height: var(--card-height, auto);
+    margin-bottom: 0.5rem;
+  }
+  60% {
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+  80% {
+    opacity: 0.15;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.85);
+    height: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes cardSlideLeft {
+  from {
+    transform: translateX(40px);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes cardSlideRight {
+  from {
+    transform: translateX(-40px);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes cardPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.08);
+  }
+  100% {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  }
+}
+
+@media (max-width: 900px) {
+  #kanban-app {
+    flex-direction: column;
+  }
+  .kanban-column {
+    max-height: unset;
+  }
+}
