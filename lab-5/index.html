@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lab 5</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+  </head>
+  <body>
+    <main class="app">
+      <h1>Kształty</h1>
+      <section class="controls" data-role="controls">
+        <button data-action="add-square" type="button">Dodaj kwadrat</button>
+        <button data-action="add-circle" type="button">Dodaj kółko</button>
+        <button data-action="recolor-squares" type="button">
+          Koloruj kwadraty
+        </button>
+        <button data-action="recolor-circles" type="button">
+          Koloruj kółka
+        </button>
+      </section>
+      <section class="counters">
+        <span
+          >Kwadraty:
+          <strong id="cntSquares" data-counter="squares">0</strong></span
+        >
+        <span
+          >Kółka:
+          <strong id="cntCircles" data-counter="circles">0</strong></span
+        >
+      </section>
+      <section
+        id="board"
+        class="board"
+        aria-label="Plansza kształtów"
+      ></section>
+    </main>
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
