@@ -6,6 +6,12 @@ h1 {
   font-size: 1.4rem;
   margin: 0 0 16px;
 }
+.shop {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 16px;
+  align-items: start;
+}
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));

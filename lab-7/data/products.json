@@ -1,0 +1,66 @@
+[
+  {
+    "id": "tshirt",
+    "name": "Koszulka Classic",
+    "price": 59.99,
+    "image": "./src/images/tshirt.jpg",
+    "colors": ["#777777", "#e50000", "#0ea5e9"],
+    "sizes": ["S", "M", "L", "XL"]
+  },
+  {
+    "id": "sweater",
+    "name": "Sweter",
+    "price": 149.0,
+    "image": "./src/images/sweater.jpg"
+  },
+  {
+    "id": "jacket",
+    "name": "Kurtka",
+    "price": 199.0,
+    "image": "./src/images/jacket.jpg",
+    "colors": ["#000000", "#80aeef", "#555555"],
+    "sizes": ["M", "L"],
+    "promo": "-10% przy zakupie 2 szt."
+  },
+  {
+    "id": "dress",
+    "name": "Sukienka",
+    "price": 199.0,
+    "image": "./src/images/dress.jpg",
+    "colors": ["#12544e", "#f59e0b", "#ef4444"],
+    "sizes": ["XS", "S", "M"],
+    "promo": "Promocja!"
+  },
+  {
+    "id": "shirt",
+    "name": "Koszula",
+    "price": 299.0,
+    "image": "./src/images/shirt.jpg",
+    "colors": ["#9bb4d7", "#111111", "#b7f2f4"],
+    "sizes": ["40", "41", "42", "43"]
+  },
+  {
+    "id": "cardigan",
+    "name": "Kardigan",
+    "price": 349.0,
+    "image": "./src/images/cardigan.jpg",
+    "colors": ["#f59e0b", "#0284c7", "#221a5b"],
+    "sizes": ["M", "L", "XL"]
+  },
+  {
+    "id": "jeans",
+    "name": "Jeansy",
+    "price": 199.0,
+    "image": "./src/images/jeans.jpg",
+    "colors": ["#1f2937", "#3b82f6", "#94a3b8"],
+    "sizes": ["30", "32", "34", "36"]
+  },
+  {
+    "id": "pants",
+    "name": "Spodnie",
+    "price": 179.0,
+    "image": "./src/images/pants.jpg",
+    "colors": ["#111111", "#6b7280", "#eab308"],
+    "sizes": ["S", "M", "L", "XL"]
+  }
+]

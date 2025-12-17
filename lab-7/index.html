@@ -2,105 +2,17 @@
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
-    <title>Lab 7 – Karty produktu</title>
+    <title>Lab 8 – Patrycja Bień</title>
     <link rel="stylesheet" href="./css/style.css" />
     <script type="module" src="./components/product-card.js"></script>
-    <script type="module" src="./components/color-list.js"></script>
-    <script type="module" src="./components/size-list.js"></script>
+    <script type="module" src="./components/product-list.js"></script>
+    <script type="module" src="./components/cart-panel.js"></script>
+  </head>
   <body>
-    <h1>Lab 7 – Patrycja Bień</h1>
-    <div class="grid">
-      <product-card>
-        <img slot="image" alt="T-shirt" src="./src/images/tshirt.jpg" />
-        <span slot="name">Koszulka Classic</span>
-        <span slot="price" class="price-new">59,99 zł</span>
-        <color-list slot="colors">
-          <span class="color" style="background: #777"></span>
-          <span class="color" style="background: #e50000"></span>
-          <span class="color" style="background: #0ea5e9"></span>
-        </color-list>
-        <size-list slot="sizes">
-          <span class="size">S</span>
-          <span class="size">M</span>
-          <span class="size">L</span>
-          <span class="size">XL</span>
-        </size-list>
-      </product-card>
-
-      <product-card>
-        <img slot="image" alt="Sweter" src="./src/images/sweater.jpg" />
-        <span slot="name">Sweter</span>
-        <span slot="price" class="price-new">149,00 zł</span>
-      </product-card>
-
-      <product-card>
-        <img slot="image" alt="Kurtka" src="./src/images/jacket.jpg"/>
-        <span slot="name">Kurtka</span>
-        <span slot="price" class="price-new">199,00 zł</span>
-        <color-list slot="colors">
-          <span class="color" style="background: #000000"></span>
-          <span class="color" style="background: #80aeef"></span>
-          <span class="color" style="background: #555"></span>
-        </color-list>
-        <size-list slot="sizes">
-          <span class="size">M</span>
-          <span class="size">L</span>
-        </size-list>
-        <span slot="promo">-10% przy zakupie 2 szt.</span>
-      </product-card>
-
-      <product-card>
-        <img slot="image" alt="Sukienka" src="./src/images/dress.jpg" />
-        <span slot="name">Sukienka</span>
-        <span slot="price"
-          ><span class="price-old">249,00 zł</span>
-          <span class="price-new">199,00 zł</span>
-        </span>
-        <color-list slot="colors">
-          <span class="color" style="background: #12544e"></span>
-          <span class="color" style="background: #f59e0b"></span>
-          <span class="color" style="background: #ef4444"></span>
-        </color-list>
-        <size-list slot="sizes">
-          <span class="size">XS</span>
-          <span class="size">S</span>
-          <span class="size">M</span>
-        </size-list>
-        <span slot="promo">Promocja!</span>
-      </product-card>
-
-      <product-card>
-        <img slot="image" alt="Koszula" src="./src/images/shirt.jpg" />
-        <span slot="name">Koszula</span>
-        <span slot="price" class="price-new">299,00 zł</span>
-        <color-list slot="colors">
-          <span class="color" style="background: #9bb4d7"></span>
-          <span class="color" style="background: #111"></span>
-          <span class="color" style="background: #b7f2f4"></span>
-        </color-list>
-        <size-list slot="sizes">
-          <span class="size">40</span>
-          <span class="size">41</span>
-          <span class="size">42</span>
-          <span class="size">43</span>
-        </size-list>
-      </product-card>
-
-      <product-card>
-        <img slot="image" alt="Kardigan" src="./src/images/cardigan.jpg" />
-        <span slot="name">Kardigan</span>
-        <span slot="price" class="price-new">349,00 zł</span>
-        <color-list slot="colors">
-          <span class="color" style="background: #f59e0b"></span>
-          <span class="color" style="background: #0284c7"></span>
-          <span class="color" style="background: #221a5b"></span>
-        </color-list>
-        <size-list slot="sizes">
-          <span class="size">M</span>
-          <span class="size">L</span>
-          <span class="size">XL</span>
-        </size-list>
-      </product-card>
+    <h1>Lab 8 – Patrycja Bień</h1>
+    <div class="shop">
+      <product-list></product-list>
+      <cart-panel></cart-panel>
     </div>
   </body>
 </html>
