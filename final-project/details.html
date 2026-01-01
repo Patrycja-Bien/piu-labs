@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./components/movie-details.js"></script>
+    <script type="module" src="./components/theme-toggle.js"></script>
+  </head>
+  <body>
+    <theme-toggle></theme-toggle>
+    <a href="./index.html" style="display: inline-block; margin: 12px 0"
+      >← Back to search</a
+    >
+    <movie-details id="details"></movie-details>
+
+    <script type="module">
+      const el = document.getElementById('details');
+      const qs = new URLSearchParams(location.search);
+      const apikey = qs.get('apikey') || '';
+      const imdb = qs.get('imdb') || '';
+      const title = qs.get('title') || '';
+      const y = qs.get('y') || '';
+      if (apikey) el.setAttribute('apikey', apikey);
+      if (imdb) el.setAttribute('imdb', imdb);
+      if (!imdb && title) el.setAttribute('title', title);
+      if (y) el.setAttribute('y', y);
+    </script>
+  </body>
+</html>

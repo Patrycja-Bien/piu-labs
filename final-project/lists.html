@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Lists</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./components/theme-toggle.js"></script>
+    <script type="module" src="./components/movie-card.js"></script>
+  </head>
+  <body>
+    <theme-toggle></theme-toggle>
+    <h1>📚 My Collection</h1>
+    <p><a href="./index.html">← Back to search</a></p>
+
+    <form
+      id="controls"
+      style="display: flex; gap: 12px; align-items: center; margin: 0 0 16px"
+    >
+      <label
+        style="
+          display: flex;
+          gap: 6px;
+          align-items: center;
+          color: var(--muted);
+        "
+      >
+        <input type="checkbox" id="onlyRated" /> Only rated
+      </label>
+      <label
+        style="
+          display: flex;
+          gap: 6px;
+          align-items: center;
+          color: var(--muted);
+        "
+      >
+        Sort
+        <select
+          id="sort"
+          style="
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg);
+            color: var(--text);
+          "
+        >
+          <option value="">Default</option>
+          <option value="rating-desc">Rating High→Low</option>
+          <option value="rating-asc">Rating Low→High</option>
+        </select>
+      </label>
+    </form>
+
+    <section>
+      <h2>Loved</h2>
+      <div id="loved" class="grid" aria-live="polite"></div>
+    </section>
+    <section>
+      <h2>Hated</h2>
+      <div id="hated" class="grid" aria-live="polite"></div>
+    </section>
+    <section>
+      <h2>Watched</h2>
+      <div id="watched" class="grid" aria-live="polite"></div>
+    </section>
+    <section>
+      <h2>Watchlist</h2>
+      <div id="watchlist" class="grid" aria-live="polite"></div>
+    </section>
+
+    <script type="module">
+      function loadStore() {
+        try {
+          return JSON.parse(localStorage.getItem('final-movie-prefs') || '{}');
+        } catch {
+          return {};
+        }
+      }
+      function loadViewPrefs() {
+        try {
+          return JSON.parse(localStorage.getItem('final-list-view') || '{}');
+        } catch {
+          return {};
+        }
+      }
+      function saveViewPrefs(p) {
+        localStorage.setItem('final-list-view', JSON.stringify(p));
+      }
+      const qs = new URLSearchParams(location.search);
+      const apikey = qs.get('apikey') || 'fa593beb';
+
+      const sections = {
+        loved: document.getElementById('loved'),
+        hated: document.getElementById('hated'),
+        watched: document.getElementById('watched'),
+        watchlist: document.getElementById('watchlist'),
+      };
+
+      function sortIdsByRating(ids, ratings, mode) {
+        if (!mode) return ids.slice();
+        const arr = ids.slice();
+        const getR = (id) =>
+          ratings && ratings[id] != null ? Number(ratings[id]) : null;
+        arr.sort((a, b) => {
+          const ra = getR(a),
+            rb = getR(b);
+          if (ra == null && rb == null) return 0;
+          if (ra == null) return 1; // unrated after rated
+          if (rb == null) return -1;
+          return mode === 'rating-desc' ? rb - ra : ra - rb;
+        });
+        return arr;
+      }
+
+      function renderList(name, ids, opts) {
+        const el = sections[name];
+        el.innerHTML = '';
+        if (!ids || ids.length === 0) {
+          const p = document.createElement('p');
+          p.textContent = 'No items.';
+          el.appendChild(p);
+          return;
+        }
+        const store = loadStore();
+        const ratings = store.ratings || {};
+        let list = ids.slice();
+        if (opts?.onlyRated) list = list.filter((id) => ratings[id] != null);
+        list = sortIdsByRating(list, ratings, opts?.sort);
+        if (list.length === 0) {
+          const p = document.createElement('p');
+          p.textContent = 'No items.';
+          el.appendChild(p);
+          return;
+        }
+        for (const id of list) {
+          const card = document.createElement('movie-card');
+          if (apikey) card.setAttribute('apikey', apikey);
+          card.setAttribute('imdb', id);
+          el.appendChild(card);
+        }
+      }
+
+      function renderAll() {
+        const view = loadViewPrefs();
+        const store = loadStore();
+        const opts = { onlyRated: !!view.onlyRated, sort: view.sort || '' };
+        renderList('loved', store.loved || [], opts);
+        renderList('hated', store.hated || [], opts);
+        renderList('watched', store.watched || [], opts);
+        renderList('watchlist', store.watchlist || [], opts);
+        const onlyRatedEl = document.getElementById('onlyRated');
+        const sortEl = document.getElementById('sort');
+        if (onlyRatedEl) onlyRatedEl.checked = !!view.onlyRated;
+        if (sortEl) sortEl.value = view.sort || '';
+      }
+
+      const onlyRatedEl = document.getElementById('onlyRated');
+      const sortEl = document.getElementById('sort');
+      onlyRatedEl?.addEventListener('change', () => {
+        const view = loadViewPrefs();
+        view.onlyRated = !!onlyRatedEl.checked;
+        saveViewPrefs(view);
+        renderAll();
+      });
+      sortEl?.addEventListener('change', () => {
+        const view = loadViewPrefs();
+        view.sort = sortEl.value;
+        saveViewPrefs(view);
+        renderAll();
+      });
+
+      renderAll();
+    </script>
+  </body>
+</html>

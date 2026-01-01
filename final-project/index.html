@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Final Project – Movie Cards</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./components/movie-card.js"></script>
+    <script type="module" src="./components/movie-search.js"></script>
+    <script type="module" src="./components/theme-toggle.js"></script>
+  </head>
+  <body>
+    <theme-toggle></theme-toggle>
+    <h1>🎬 Final Project – Movie Cards</h1>
+    <p><a href="./lists.html">View My Lists →</a></p>
+    <movie-search apikey="fa593beb"></movie-search>
+    <div id="results" class="grid" aria-live="polite"></div>
+
+    <script type="module">
+      const API = 'https://www.omdbapi.com/';
+      const resultsEl = document.getElementById('results');
+      const searchEl = document.querySelector('movie-search');
+
+      const renderError = (msg) => {
+        resultsEl.innerHTML = `<p class="error">${msg}</p>`;
+      };
+
+      const renderResults = (items, apikey) => {
+        resultsEl.innerHTML = '';
+        if (!items?.length) {
+          renderError('No results.');
+          return;
+        }
+        for (const it of items) {
+          const card = document.createElement('movie-card');
+          card.setAttribute('apikey', apikey || '');
+          if (it.imdbID) card.setAttribute('imdb', it.imdbID);
+          else card.setAttribute('title', it.Title || '');
+          if (it.Year) card.setAttribute('y', it.Year);
+          resultsEl.appendChild(card);
+        }
+      };
+
+      const yearOf = (y) => {
+        const m = String(y || '').match(/\d{4}/);
+        return m ? parseInt(m[0], 10) : 0;
+      };
+
+      function sortItems(items, sort) {
+        if (!sort) return items;
+        const arr = items.slice();
+        switch (sort) {
+          case 'title-asc':
+            arr.sort((a, b) =>
+              (a.Title || '').localeCompare(b.Title || '', undefined, {
+                sensitivity: 'base',
+              })
+            );
+            break;
+          case 'title-desc':
+            arr.sort((a, b) =>
+              (b.Title || '').localeCompare(a.Title || '', undefined, {
+                sensitivity: 'base',
+              })
+            );
+            break;
+          case 'year-asc':
+            arr.sort((a, b) => yearOf(a.Year) - yearOf(b.Year));
+            break;
+          case 'year-desc':
+            arr.sort((a, b) => yearOf(b.Year) - yearOf(a.Year));
+            break;
+        }
+        return arr;
+      }
+      document.addEventListener('movie-search', async (e) => {
+        const { q, y, type, sort, apikey } = e.detail || {};
+        const params = new URLSearchParams({
+          apikey: apikey || searchEl?.getAttribute('apikey') || '',
+          s: q,
+        });
+        if (y) params.set('y', y);
+        if (type) params.set('type', type);
+        try {
+          resultsEl.innerHTML = '<p>Loading…</p>';
+          const res = await fetch(`${API}?${params.toString()}`);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const json = await res.json();
+          if (json.Response === 'False')
+            throw new Error(json.Error || 'No results');
+          const items = sortItems(json.Search || [], sort);
+          renderResults(items, apikey || searchEl?.getAttribute('apikey'));
+        } catch (err) {
+          renderError('Error: ' + (err?.message || err));
+        }
+      });
+    </script>
+  </body>
+</html>

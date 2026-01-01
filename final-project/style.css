@@ -1,0 +1,37 @@
+:root {
+  --bg: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+  --error: #b91c1c;
+}
+html[data-theme='dark'] {
+  --bg: #0f172a;
+  --text: #e5e7eb;
+  --muted: #cbd5e1;
+  --border: #334155;
+  --accent: #3b82f6;
+  --error: #f87171;
+}
+body {
+  font-family: system-ui, Arial, sans-serif;
+  margin: 24px;
+  background: var(--bg);
+  color: var(--text);
+}
+h1 {
+  font-size: 1.4rem;
+  margin: 0 0 16px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+a {
+  color: var(--accent);
+}
+.error {
+  color: var(--error);
+}
