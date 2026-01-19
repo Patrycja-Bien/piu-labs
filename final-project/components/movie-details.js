@@ -271,8 +271,15 @@ export default class MovieDetails extends HTMLElement {
         else store.loved = store.loved.filter((x) => x !== id);
         // ensure not hated simultaneously
         store.hated = store.hated.filter((x) => x !== id);
-        saveStore(store);
+        savePrefs(store);
         this.#render();
+        window.dispatchEvent(
+            new CustomEvent('final-prefs-changed', {
+                detail: { id, store },
+                bubbles: true,
+                composed: true,
+            }),
+        );
     };
 
     #onHate = () => {
@@ -284,8 +291,15 @@ export default class MovieDetails extends HTMLElement {
         if (!store.hated.includes(id)) store.hated.push(id);
         else store.hated = store.hated.filter((x) => x !== id);
         store.loved = store.loved.filter((x) => x !== id);
-        saveStore(store);
+        savePrefs(store);
         this.#render();
+        window.dispatchEvent(
+            new CustomEvent('final-prefs-changed', {
+                detail: { id, store },
+                bubbles: true,
+                composed: true,
+            }),
+        );
     };
 
     #onWatched = () => {
@@ -299,6 +313,13 @@ export default class MovieDetails extends HTMLElement {
         store.watchlist = store.watchlist.filter((x) => x !== id);
         savePrefs(store);
         this.#render();
+        window.dispatchEvent(
+            new CustomEvent('final-prefs-changed', {
+                detail: { id, store },
+                bubbles: true,
+                composed: true,
+            }),
+        );
     };
 
     #onWatchlist = () => {
@@ -312,6 +333,13 @@ export default class MovieDetails extends HTMLElement {
         store.watched = store.watched.filter((x) => x !== id);
         savePrefs(store);
         this.#render();
+        window.dispatchEvent(
+            new CustomEvent('final-prefs-changed', {
+                detail: { id, store },
+                bubbles: true,
+                composed: true,
+            }),
+        );
     };
 
     #onSave = () => {
@@ -333,6 +361,13 @@ export default class MovieDetails extends HTMLElement {
         savePrefs(store);
         this.#showError('');
         this.#note('Saved.');
+        window.dispatchEvent(
+            new CustomEvent('final-prefs-changed', {
+                detail: { id, store },
+                bubbles: true,
+                composed: true,
+            }),
+        );
         setTimeout(() => this.#note(''), 1500);
     };
 

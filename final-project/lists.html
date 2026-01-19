@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -172,6 +172,11 @@
       });
 
       renderAll();
+
+      // Live update: re-render when preferences change
+      window.addEventListener('final-prefs-changed', () => {
+        renderAll();
+      });
     </script>
   </body>
 </html>

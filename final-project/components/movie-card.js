@@ -297,6 +297,13 @@ export default class MovieCard extends HTMLElement {
         store.hated = store.hated.filter((x) => x !== id);
         savePrefs(store);
         this.#updatePrefsUI();
+        window.dispatchEvent(
+            new CustomEvent('final-prefs-changed', {
+                detail: { id, store },
+                bubbles: true,
+                composed: true,
+            }),
+        );
     };
     #onHate = (e) => {
         e.stopPropagation();
@@ -310,6 +317,13 @@ export default class MovieCard extends HTMLElement {
         store.loved = store.loved.filter((x) => x !== id);
         savePrefs(store);
         this.#updatePrefsUI();
+        window.dispatchEvent(
+            new CustomEvent('final-prefs-changed', {
+                detail: { id, store },
+                bubbles: true,
+                composed: true,
+            }),
+        );
     };
     #onWatched = (e) => {
         e.stopPropagation();
@@ -323,6 +337,13 @@ export default class MovieCard extends HTMLElement {
         store.watchlist = store.watchlist.filter((x) => x !== id);
         savePrefs(store);
         this.#updatePrefsUI();
+        window.dispatchEvent(
+            new CustomEvent('final-prefs-changed', {
+                detail: { id, store },
+                bubbles: true,
+                composed: true,
+            }),
+        );
     };
     #onWatchlist = (e) => {
         e.stopPropagation();
@@ -336,6 +357,13 @@ export default class MovieCard extends HTMLElement {
         store.watched = store.watched.filter((x) => x !== id);
         savePrefs(store);
         this.#updatePrefsUI();
+        window.dispatchEvent(
+            new CustomEvent('final-prefs-changed', {
+                detail: { id, store },
+                bubbles: true,
+                composed: true,
+            }),
+        );
     };
 }
 
