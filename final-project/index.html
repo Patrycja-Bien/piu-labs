@@ -11,7 +11,7 @@
   </head>
   <body>
     <theme-toggle></theme-toggle>
-    <h1>🎬 Final Project – Movie Cards</h1>
+    <h1>🎬 Final Project – My Movie Collection</h1>
     <div style="margin-bottom: 24px">
       <a href="./lists.html" class="nav-link">
         <span>View My Lists →</span>
@@ -19,30 +19,63 @@
     </div>
     <movie-search apikey="fa593beb"></movie-search>
     <div id="results" class="grid" aria-live="polite"></div>
+    <div
+      id="moreWrap"
+      style="margin-top: 16px; display: none; align-items: center; gap: 12px"
+    >
+      <button id="loadMore" type="button" class="nav-link">Load more</button>
+      <span id="moreStatus" style="color: var(--muted)"></span>
+    </div>
 
     <script type="module">
       const API = 'https://www.omdbapi.com/';
       const resultsEl = document.getElementById('results');
       const searchEl = document.querySelector('movie-search');
+      const moreWrap = document.getElementById('moreWrap');
+      const loadMoreBtn = document.getElementById('loadMore');
+      const moreStatusEl = document.getElementById('moreStatus');
+
+      let currentQuery = null;
+      let currentPage = 0;
+      let totalResults = 0;
+      let isLoading = false;
+      const items = [];
+      const cardsByKey = new Map();
+
+      const keyOf = (it) =>
+        it?.imdbID || `${it?.Title || ''}|${it?.Year || ''}`;
+
+      function setMoreUI() {
+        const shown = items.length;
+        const total = totalResults || 0;
+        const hasMore = total > 0 && shown < total;
+        if (moreWrap) moreWrap.style.display = hasMore ? 'flex' : 'none';
+        if (moreStatusEl) {
+          moreStatusEl.textContent = total
+            ? `Showing ${shown} / ${total}`
+            : shown
+              ? `Showing ${shown}`
+              : '';
+        }
+        if (loadMoreBtn) {
+          loadMoreBtn.disabled = !hasMore || isLoading;
+          loadMoreBtn.style.opacity = loadMoreBtn.disabled ? '0.6' : '1';
+          loadMoreBtn.textContent = isLoading ? 'Loading…' : 'Load more';
+        }
+      }
+
+      function resetResultsUI() {
+        resultsEl.innerHTML = '';
+        items.length = 0;
+        cardsByKey.clear();
+        totalResults = 0;
+        currentPage = 0;
+        setMoreUI();
+      }
 
       const renderError = (msg) => {
         resultsEl.innerHTML = `<p class="error">${msg}</p>`;
-      };
-
-      const renderResults = (items, apikey) => {
-        resultsEl.innerHTML = '';
-        if (!items?.length) {
-          renderError('No results.');
-          return;
-        }
-        for (const it of items) {
-          const card = document.createElement('movie-card');
-          card.setAttribute('apikey', apikey || '');
-          if (it.imdbID) card.setAttribute('imdb', it.imdbID);
-          else card.setAttribute('title', it.Title || '');
-          if (it.Year) card.setAttribute('y', it.Year);
-          resultsEl.appendChild(card);
-        }
+        if (moreWrap) moreWrap.style.display = 'none';
       };
 
       const yearOf = (y) => {
@@ -77,27 +110,119 @@
         }
         return arr;
       }
+
+      function upsertCardsForItems(apikey) {
+        // Create missing cards for new items.
+        for (const it of items) {
+          const key = keyOf(it);
+          if (!key || cardsByKey.has(key)) continue;
+          const card = document.createElement('movie-card');
+          card.setAttribute('apikey', apikey || '');
+          if (it.imdbID) card.setAttribute('imdb', it.imdbID);
+          else card.setAttribute('title', it.Title || '');
+          if (it.Year) card.setAttribute('y', it.Year);
+          cardsByKey.set(key, card);
+        }
+      }
+
+      function renderFromState() {
+        if (!currentQuery) return;
+        if (items.length === 0) {
+          renderError('No results.');
+          return;
+        }
+        // Reorder existing DOM nodes without recreating them.
+        const ordered = sortItems(items, currentQuery.sort);
+        resultsEl.innerHTML = '';
+        for (const it of ordered) {
+          const card = cardsByKey.get(keyOf(it));
+          if (card) resultsEl.appendChild(card);
+        }
+        setMoreUI();
+      }
+
+      async function fetchPage(page) {
+        if (!currentQuery) return;
+        const params = new URLSearchParams({
+          apikey: currentQuery.apikey,
+          s: currentQuery.q,
+          page: String(page),
+        });
+        if (currentQuery.y) params.set('y', currentQuery.y);
+        if (currentQuery.type) params.set('type', currentQuery.type);
+
+        const res = await fetch(`${API}?${params.toString()}`);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const json = await res.json();
+        if (json.Response === 'False')
+          throw new Error(json.Error || 'No results');
+        const incoming = Array.isArray(json.Search) ? json.Search : [];
+        const total = Number(json.totalResults || 0) || 0;
+        return { incoming, total };
+      }
+
       document.addEventListener('movie-search', async (e) => {
         const { q, y, type, sort, apikey } = e.detail || {};
-        const params = new URLSearchParams({
-          apikey: apikey || searchEl?.getAttribute('apikey') || '',
-          s: q,
-        });
-        if (y) params.set('y', y);
-        if (type) params.set('type', type);
+        const effectiveKey = apikey || searchEl?.getAttribute('apikey') || '';
+        currentQuery = {
+          q,
+          y: y || '',
+          type: type || '',
+          sort: sort || '',
+          apikey: effectiveKey,
+        };
         try {
+          resetResultsUI();
+          isLoading = true;
           resultsEl.innerHTML = '<p>Loading…</p>';
-          const res = await fetch(`${API}?${params.toString()}`);
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          const json = await res.json();
-          if (json.Response === 'False')
-            throw new Error(json.Error || 'No results');
-          const items = sortItems(json.Search || [], sort);
-          renderResults(items, apikey || searchEl?.getAttribute('apikey'));
+          setMoreUI();
+
+          const { incoming, total } = await fetchPage(1);
+          totalResults = total;
+          currentPage = 1;
+          items.push(...incoming);
+          upsertCardsForItems(effectiveKey);
+          isLoading = false;
+          renderFromState();
         } catch (err) {
+          isLoading = false;
+          setMoreUI();
           renderError('Error: ' + (err?.message || err));
         }
       });
+
+      loadMoreBtn?.addEventListener('click', async () => {
+        if (!currentQuery) return;
+        if (isLoading) return;
+        if (totalResults && items.length >= totalResults) return;
+        try {
+          isLoading = true;
+          setMoreUI();
+          const nextPage = currentPage + 1;
+          const { incoming, total } = await fetchPage(nextPage);
+          if (total) totalResults = total;
+          currentPage = nextPage;
+
+          // De-dupe by key because API can repeat sometimes
+          const existing = new Set(items.map(keyOf));
+          for (const it of incoming) {
+            const k = keyOf(it);
+            if (!k || existing.has(k)) continue;
+            items.push(it);
+            existing.add(k);
+          }
+          upsertCardsForItems(currentQuery.apikey);
+          isLoading = false;
+          renderFromState();
+        } catch (err) {
+          isLoading = false;
+          setMoreUI();
+          renderError('Error: ' + (err?.message || err));
+        }
+      });
+
+      // Initial state
+      setMoreUI();
     </script>
   </body>
 </html>

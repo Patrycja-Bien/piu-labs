@@ -413,6 +413,13 @@ export default class MovieDetails extends HTMLElement {
         const store = loadPrefs();
         store.ratings = store.ratings || {};
         store.ratings[id] = val;
+
+        // Auto-mark as watched when user rates a movie.
+        store.watched = store.watched || [];
+        if (!store.watched.includes(id)) store.watched.push(id);
+        // If it's watched, it should not stay on the watchlist.
+        store.watchlist = (store.watchlist || []).filter((x) => x !== id);
+
         savePrefs(store);
         this.#updatePrefsUI();
 

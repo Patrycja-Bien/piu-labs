@@ -48,15 +48,28 @@ a {
   color: var(--text);
   font-weight: 600;
   font-size: 0.95rem;
+  cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .nav-link:hover {
   border-color: var(--accent);
   color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+button.nav-link:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+button.nav-link:disabled:hover {
+  border-color: var(--border);
+  color: var(--text);
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .nav-link:active {
