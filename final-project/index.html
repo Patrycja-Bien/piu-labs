@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -12,7 +12,11 @@
   <body>
     <theme-toggle></theme-toggle>
     <h1>🎬 Final Project – Movie Cards</h1>
-    <p><a href="./lists.html">View My Lists →</a></p>
+    <div style="margin-bottom: 24px">
+      <a href="./lists.html" class="nav-link">
+        <span>View My Lists →</span>
+      </a>
+    </div>
     <movie-search apikey="fa593beb"></movie-search>
     <div id="results" class="grid" aria-live="polite"></div>
 
@@ -54,14 +58,14 @@
             arr.sort((a, b) =>
               (a.Title || '').localeCompare(b.Title || '', undefined, {
                 sensitivity: 'base',
-              })
+              }),
             );
             break;
           case 'title-desc':
             arr.sort((a, b) =>
               (b.Title || '').localeCompare(a.Title || '', undefined, {
                 sensitivity: 'base',
-              })
+              }),
             );
             break;
           case 'year-asc':
